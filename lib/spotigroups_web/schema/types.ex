@@ -5,12 +5,14 @@ defmodule SpotigroupsWeb.Schema.Types do
   object :user do
     field :id, non_null(:id)
     field :spotify_id, non_null(:string)
+    field :groups, list_of(:group), resolve: assoc(:group)
   end
 
   object :group do 
     field :id, non_null(:id)
     field :name, :string
     field :playlists, list_of(:playlist), resolve: assoc(:playlists)
+    field :users, list_of(:user), resolve: assoc(:users)
   end
 
   object :playlist do

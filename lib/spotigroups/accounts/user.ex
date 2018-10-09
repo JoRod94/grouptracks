@@ -5,6 +5,7 @@ defmodule Spotigroups.Accounts.User do
 
   schema "users" do
     field :spotify_id, :string
+    many_to_many :groups, Spotigroups.Sharing.Group, join_through: Spotigroups.Sharing.GroupUser
 
     timestamps()
   end
