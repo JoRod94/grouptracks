@@ -15,5 +15,7 @@ defmodule Spotigroups.Sharing.GroupUser do
     group_user
     |> cast(attrs, [])
     |> validate_required([])
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:group_id)
   end
 end

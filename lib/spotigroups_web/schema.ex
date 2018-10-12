@@ -27,7 +27,8 @@ defmodule SpotigroupsWeb.Schema do
     end
 
     field :create_group, :group do
-      arg :spotify_id, non_null(:string)
+      arg :name, non_null(:string)
+      arg :users, non_null(list_of(:string))
 
       resolve &SharingResolver.create_group/3
     end

@@ -5,8 +5,8 @@ defmodule Spotigroups.Sharing.Group do
 
   schema "groups" do
     field :name, :string
-    has_many :playlists, Spotigroups.Music.Playlist
-    many_to_many :users, Spotigroups.Accounts.User, join_through: Spotigroups.Sharing.GroupUser
+    has_many :playlists, Spotigroups.Music.Playlist, on_delete: :delete_all, on_replace: :delete
+    many_to_many :users, Spotigroups.Accounts.User, join_through: Spotigroups.Sharing.GroupUser, on_delete: :delete_all, on_replace: :delete
 
     timestamps()
   end
@@ -16,5 +16,6 @@ defmodule Spotigroups.Sharing.Group do
     group
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    # |> unique_constraint(:users)
   end
 end

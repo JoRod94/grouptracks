@@ -8,5 +8,6 @@ defmodule Spotigroups.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    create unique_index(:users, [:spotify_id])
   end
 end

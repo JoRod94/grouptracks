@@ -7,6 +7,8 @@ defmodule Spotigroups.Sharing do
   alias Spotigroups.Repo
 
   alias Spotigroups.Sharing.Group
+  alias Spotigroups.Accounts.User
+  alias Ecto.Changeset
 
   @doc """
   Returns the list of groups.
@@ -50,9 +52,23 @@ defmodule Spotigroups.Sharing do
 
   """
   def create_group(attrs \\ %{}) do
-    %Group{}
-    |> Group.changeset(attrs)
-    |> Repo.insert()
+    if !Map.has_key?(attrs, :users) do
+      {:error, "No Users Argument"}
+    else
+      group_users = Repo.all(from u in User, where: u.spotify_id in ^attrs.users, select: u)
+      if length(attrs.users) != length(group_users) do
+        {:error, "Missing User(s)"}
+      else
+        inserted_group = %Group{}
+        |> Group.changeset(attrs)
+        |> Repo.insert!()
+        |> Repo.preload :users
+
+        Changeset.change(inserted_group)
+        |> Changeset.put_assoc(:users, group_users)
+        |> Repo.update()
+      end
+    end
   end
 
   @doc """

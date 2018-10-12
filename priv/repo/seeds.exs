@@ -13,4 +13,4 @@
 alias Spotigroups.Accounts.User
 alias Spotigroups.Repo
 
-%User{ spotify_id: "1166739979"} |> Repo.insert!
+%User{ spotify_id: "123"} |> Repo.insert!

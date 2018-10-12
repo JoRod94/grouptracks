@@ -11,8 +11,8 @@ defmodule SpotigroupsWeb.SharingResolver do
     case Sharing.create_group(args) do
       {:ok, group} ->
         {:ok, group}
-      _error ->
-        {:error, "could not create group"}
+      {:error, x} ->
+        {:error, x}
     end
   end
 end
