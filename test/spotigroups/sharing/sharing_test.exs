@@ -8,9 +8,12 @@ defmodule Spotigroups.SharingTest do
     alias Spotigroups.Sharing.Group
     @test_user_sids ["123", "456"]
 
-    @valid_attrs %{name: "some name", users: @test_user_sids}
+    @valid_attrs %{name: "some name", users: ["123", "456", "456"]}
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
+    @empty_users %{name: "test", users: []}
+    @one_user %{name: "test", users: ["123"]}
+    @one_user_duplicate %{name: "test", users: ["123", "123"]}
 
     def group_fixture(attrs \\ %{}) do
       Enum.each(@test_user_sids, fn us -> Accounts.create_user(%{spotify_id: us}) end)
@@ -44,6 +47,21 @@ defmodule Spotigroups.SharingTest do
     test "create_group/1 with invalid data returns error" do
       # Should this always return a changeset? If so, why?
       assert {:error, _} = Sharing.create_group(@invalid_attrs)
+    end
+
+    test "create_group/1 with empty users array returns error" do
+      # Should this always return a changeset? If so, why?
+      assert {:error, _} = Sharing.create_group(@empty_users)
+    end
+
+    test "create_group/1 with only one user returns error" do
+      # Should this always return a changeset? If so, why?
+      assert {:error, _} = Sharing.create_group(@one_user)
+    end
+
+    test "create_group/1 with only one user in duplicated list returns error" do
+      # Should this always return a changeset? If so, why?
+      assert {:error, _} = Sharing.create_group(@one_user_duplicate)
     end
 
     # test "create_group/1 with repeated set of users returns an error" do
