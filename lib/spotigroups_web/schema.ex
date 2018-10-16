@@ -33,10 +33,10 @@ defmodule SpotigroupsWeb.Schema do
       resolve &SharingResolver.create_group/3
     end
 
-    field :create_playlist, :playlist do
-      arg :spotify_id, non_null(:string)
+    field :generate_playlist, :playlist do
+      arg :group_id, non_null(:integer)
 
-      resolve &MusicResolver.create_playlist/3
+      resolve &MusicResolver.generate_playlist/3
     end
   end
 end

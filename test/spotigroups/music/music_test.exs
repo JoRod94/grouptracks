@@ -5,15 +5,31 @@ defmodule Spotigroups.MusicTest do
 
   describe "playlists" do
     alias Spotigroups.Music.Playlist
+    alias Spotigroups.Sharing
+    alias Spotigroups.Accounts
 
-    @valid_attrs %{songs: [], spotify_id: "some spotify_id"}
+    @valid_attrs %{songs: [], spotify_id: "some spotify_id", group_id: 1}
     @update_attrs %{songs: [], spotify_id: "some updated spotify_id"}
-    @invalid_attrs %{songs: nil, spotify_id: nil}
+    @invalid_attrs %{songs: nil, spotify_id: nil, group_id: nil}
+
+    @valid_group_attrs %{name: "playlist_test", users: ["123", "456", "456"]}
+    @test_user_sids ["123", "456"]
+
+    def group_fixture(attrs \\ %{}) do
+      Enum.each(@test_user_sids, fn us -> Accounts.create_user(%{spotify_id: us}) end)
+      {:ok, group} =
+        attrs
+        |> Enum.into(@valid_group_attrs)
+        |> Sharing.create_group()
+
+      group
+    end
 
     def playlist_fixture(attrs \\ %{}) do
+      group = group_fixture()
       {:ok, playlist} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(%{@valid_attrs | group_id: group.id})
         |> Music.create_playlist()
 
       playlist
@@ -30,9 +46,13 @@ defmodule Spotigroups.MusicTest do
     end
 
     test "create_playlist/1 with valid data creates a playlist" do
-      assert {:ok, %Playlist{} = playlist} = Music.create_playlist(@valid_attrs)
+      group = group_fixture()
+      assert {:ok, %Playlist{} = playlist} = Music.create_playlist(%{@valid_attrs | group_id: group.id})
       assert playlist.songs == []
       assert playlist.spotify_id == "some spotify_id"
+      inserted_group = Sharing.get_group!(group.id) |> Repo.preload(:playlists)
+      inserted_playlist_ids = Enum.map(inserted_group.playlists, fn p -> p.id end)
+      assert Enum.member?(inserted_playlist_ids, playlist.id)
     end
 
     test "create_playlist/1 with invalid data returns error changeset" do

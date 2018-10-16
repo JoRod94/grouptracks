@@ -50,6 +50,7 @@ defmodule Spotigroups.Music do
 
   """
   def create_playlist(attrs \\ %{}) do
+    if Map.has_key?(attrs, :group_id) && attrs.group_id != nil, do: Spotigroups.Sharing.get_group!(attrs.group_id)
     %Playlist{}
     |> Playlist.changeset(attrs)
     |> Repo.insert()

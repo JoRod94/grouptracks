@@ -14,8 +14,8 @@ defmodule Spotigroups.Music.Playlist do
   @doc false
   def changeset(playlist, attrs) do
     playlist
-    |> cast(attrs, [:spotify_id, :songs])
-    |> validate_required([:spotify_id, :songs])
+    |> cast(attrs, [:spotify_id, :songs, :group_id])
+    |> validate_required([:songs, :group_id])
     |> unique_constraint(:spotify_id)
   end
 end
