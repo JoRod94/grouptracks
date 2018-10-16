@@ -9,7 +9,7 @@ defmodule Spotigroups.SharingTest do
     @test_user_sids ["123", "456"]
 
     @valid_attrs %{name: "some name", users: ["123", "456", "456"]}
-    @update_attrs %{name: "some updated name"}
+    @update_attrs %{name: "some updated name", users: ["123", "456", "456"]}
     @invalid_attrs %{name: nil}
     @empty_users %{name: "test", users: []}
     @one_user %{name: "test", users: ["123"]}
@@ -45,23 +45,19 @@ defmodule Spotigroups.SharingTest do
     end
 
     test "create_group/1 with invalid data returns error" do
-      # Should this always return a changeset? If so, why?
-      assert {:error, _} = Sharing.create_group(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Sharing.create_group(@invalid_attrs)
     end
 
     test "create_group/1 with empty users array returns error" do
-      # Should this always return a changeset? If so, why?
-      assert {:error, _} = Sharing.create_group(@empty_users)
+      assert {:error, %Ecto.Changeset{}} = Sharing.create_group(@empty_users)
     end
 
     test "create_group/1 with only one user returns error" do
-      # Should this always return a changeset? If so, why?
-      assert {:error, _} = Sharing.create_group(@one_user)
+      assert {:error, %Ecto.Changeset{}} = Sharing.create_group(@one_user)
     end
 
     test "create_group/1 with only one user in duplicated list returns error" do
-      # Should this always return a changeset? If so, why?
-      assert {:error, _} = Sharing.create_group(@one_user_duplicate)
+      assert {:error, %Ecto.Changeset{}} = Sharing.create_group(@one_user_duplicate)
     end
 
     # test "create_group/1 with repeated set of users returns an error" do

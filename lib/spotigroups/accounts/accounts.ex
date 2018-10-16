@@ -37,6 +37,10 @@ defmodule Spotigroups.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by_spotify_id(spotify_id) do
+    Repo.get_by(User, spotify_id: spotify_id)
+  end
+
   @doc """
   Creates a user.
 

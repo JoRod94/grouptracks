@@ -12,7 +12,8 @@ defmodule SpotigroupsWeb.SharingResolver do
       {:ok, group} ->
         {:ok, group}
       {:error, x} ->
-        {:error, x}
+        # improve error message
+        {:error, "could not create group"}
     end
   end
 end

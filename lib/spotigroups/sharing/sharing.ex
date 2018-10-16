@@ -52,28 +52,12 @@ defmodule Spotigroups.Sharing do
 
   """
   def create_group(attrs \\ %{}) do
-    has_users = Map.has_key?(attrs, :users)
-    unique_users = if has_users, do: Enum.uniq(attrs.users)
-    cond do
-      !has_users -> 
-        {:error, "No Users Argument"}
-      length(unique_users) < 2 ->
-        {:error, "A group needs to have at least 2 users"}
-      true ->
-        group_users = Repo.all(from u in User, where: u.spotify_id in ^unique_users, select: u)
-        if length(unique_users) != length(group_users) do
-          {:error, "Missing User(s)"}
-        else
-          inserted_group = %Group{}
-          |> Group.changeset(attrs)
-          |> Repo.insert!()
-          |> Repo.preload :users
-
-          Changeset.change(inserted_group)
-          |> Changeset.put_assoc(:users, group_users)
-          |> Repo.update()
-        end
-    end
+    hasUsers = Map.has_key?(attrs, :users)
+    users = if hasUsers, do: Spotigroups.Services.GroupCreation.get_users_by_spotify_ids(attrs.users), else: nil
+    new_attrs = if hasUsers, do: %{attrs | users: users}, else: attrs
+    %Group{}
+    |> Group.changeset(new_attrs)
+    |> Repo.insert()
   end
 
   @doc """
@@ -89,8 +73,11 @@ defmodule Spotigroups.Sharing do
 
   """
   def update_group(%Group{} = group, attrs) do
+    hasUsers = Map.has_key?(attrs, :users)
+    users = if hasUsers, do: Spotigroups.Services.GroupCreation.get_users_by_spotify_ids(attrs.users), else: nil
+    new_attrs = if hasUsers, do: %{attrs | users: users}, else: attrs
     group
-    |> Group.changeset(attrs)
+    |> Group.changeset(new_attrs)
     |> Repo.update()
   end
 
