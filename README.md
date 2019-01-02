@@ -6,14 +6,18 @@ To start your Phoenix server:
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+This API provides access through GraphQL. As such, you can access it by using the GraphiQL IDE through http://localhost:4000/graphiql.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+Presently, the following queries are available:
 
-## Learn more
+- `all_users`
+- `all_groups`
+- `all_playlists`
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+And the following mutations are available:
+
+| Mutation          | Args                                | Notes                             |
+|-------------------|-------------------------------------|-----------------------------------|
+| `create_user`       | spotify_id:string                   |                                   |
+| `create_group`      | name:string, users:list_of(:string) |                                   |
+| `generate_playlist` | group_id:integer                    | Generated playlist is placeholder |
