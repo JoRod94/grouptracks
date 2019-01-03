@@ -8,16 +8,27 @@ To start your Phoenix server:
 
 This API provides access through GraphQL. As such, you can access it by using the GraphiQL IDE through http://localhost:4000/graphiql.
 
+The following types exist in this API:
+
+| Type     | Fields                                                                                           |
+|----------|--------------------------------------------------------------------------------------------------|
+| User     | id: **ID**<br>spotifyID: **String**<br>groups: **[Group]**                                       |
+| Group    | id: **ID**<br>name: **String**<br>playlists: **[Playlist]**<br>users: **[User]**                 |
+| Playlist | id: **ID**<br>songs: **[String]**<br>spotifyId: **String**<br>groupId: **Group**                 |
+
 Presently, the following queries are available:
 
-- `all_users`
-- `all_groups`
-- `all_playlists`
+| Query             | Type                                    |
+|-------------------|-----------------------------------------|
+| `allUsers`        | **[User]**                              |                                   
+| `allGroups`       | **[Group]**                             |                                   
+| `allPlaylists`    | **[Playlist]**                          | 
+
 
 And the following mutations are available:
 
-| Mutation          | Args                                | Notes                             |
-|-------------------|-------------------------------------|-----------------------------------|
-| `create_user`       | spotify_id:string                   |                                   |
-| `create_group`      | name:string, users:list_of(:string) |                                   |
-| `generate_playlist` | group_id:integer                    | Generated playlist is placeholder |
+| Mutation            | Fields                                  | Notes                             |
+|---------------------|-----------------------------------------|-----------------------------------|
+| `createUser`        | spotifyId: **String**                   |                                   |
+| `createGroup`       | name: **String**<br>users: **[String]** |                                   |
+| `generatePlaylist`  | groupId: **Int**                        | Generated playlist is placeholder |
