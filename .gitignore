@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io/api/elixir,phoenix
 
+.env
+
 ### Elixir ###
 /_build
 /cover
