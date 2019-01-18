@@ -6,17 +6,17 @@
 use Mix.Config
 
 # General application configuration
-config :spotigroups,
-  ecto_repos: [Spotigroups.Repo]
+config :grouptracks,
+  ecto_repos: [Grouptracks.Repo]
 
-config :spotigroups, current_env: Mix.env
+config :grouptracks, current_env: Mix.env
 
 # Configures the endpoint
-config :spotigroups, SpotigroupsWeb.Endpoint,
+config :grouptracks, GrouptracksWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "eNH4HEwFnOXSzvWIsq2P7IqIYEDACFCWqNr9zpjE3eLmXVJ6nHaHQU0I3GtQbgxj",
-  render_errors: [view: SpotigroupsWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Spotigroups.PubSub,
+  render_errors: [view: GrouptracksWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: Grouptracks.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
@@ -27,4 +27,5 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
-import_config "#{Mix.env}.secret.exs"
+import_config "prod.secret.exs"
+import_config "dev.secret.exs"

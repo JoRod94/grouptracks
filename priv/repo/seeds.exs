@@ -5,12 +5,7 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     Spotigroups.Repo.insert!(%Spotigroups.SomeSchema{})
+#     Grouptracks.Repo.insert!(%Grouptracks.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-
-alias Spotigroups.Accounts.User
-alias Spotigroups.Repo
-
-%User{ social_id: "123"} |> Repo.insert!

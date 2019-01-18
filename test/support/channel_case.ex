@@ -1,4 +1,4 @@
-defmodule SpotigroupsWeb.ChannelCase do
+defmodule GrouptracksWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule SpotigroupsWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint SpotigroupsWeb.Endpoint
+      @endpoint GrouptracksWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spotigroups.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Grouptracks.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Spotigroups.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Grouptracks.Repo, {:shared, self()})
     end
     :ok
   end

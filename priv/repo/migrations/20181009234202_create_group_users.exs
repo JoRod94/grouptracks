@@ -1,4 +1,4 @@
-defmodule Spotigroups.Repo.Migrations.CreateGroupUsers do
+defmodule Grouptracks.Repo.Migrations.CreateGroupUsers do
   use Ecto.Migration
 
   def change do

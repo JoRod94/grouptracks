@@ -1,3 +1,3 @@
 ExUnit.start()
 
-Ecto.Adapters.SQL.Sandbox.mode(Spotigroups.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Grouptracks.Repo, :manual)

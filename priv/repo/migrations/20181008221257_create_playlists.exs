@@ -1,4 +1,4 @@
-defmodule Spotigroups.Repo.Migrations.CreatePlaylists do
+defmodule Grouptracks.Repo.Migrations.CreatePlaylists do
   use Ecto.Migration
 
   def change do

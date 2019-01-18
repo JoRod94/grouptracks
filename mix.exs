@@ -1,9 +1,9 @@
-defmodule Spotigroups.Mixfile do
+defmodule Grouptracks.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :spotigroups,
+      app: :grouptracks,
       version: "0.0.1",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -19,7 +19,7 @@ defmodule Spotigroups.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Spotigroups.Application, []},
+      mod: {Grouptracks.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

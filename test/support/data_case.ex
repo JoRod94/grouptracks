@@ -1,4 +1,4 @@
-defmodule Spotigroups.DataCase do
+defmodule Grouptracks.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Spotigroups.DataCase do
 
   using do
     quote do
-      alias Spotigroups.Repo
+      alias Grouptracks.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Spotigroups.DataCase
+      import Grouptracks.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spotigroups.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Grouptracks.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Spotigroups.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Grouptracks.Repo, {:shared, self()})
     end
 
     :ok
