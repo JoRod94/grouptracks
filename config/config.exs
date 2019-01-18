@@ -9,6 +9,8 @@ use Mix.Config
 config :spotigroups,
   ecto_repos: [Spotigroups.Repo]
 
+config :spotigroups, current_env: Mix.env
+
 # Configures the endpoint
 config :spotigroups, SpotigroupsWeb.Endpoint,
   url: [host: "localhost"],

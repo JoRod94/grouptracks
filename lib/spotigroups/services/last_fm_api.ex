@@ -1,18 +1,19 @@
 defmodule Spotigroups.Services.LastFmApi do
-  def api_get(url){
+  def api_get(url) do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         result = Poison.decode!(body)
-        if Map.has_key?("error", result), do
+        if Map.has_key?(result, "error") do
           {:error, "API Error: #{result["message"]}"}
         else
           {:ok, result}
+        end
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, "Request Error: #{reason}"}
       _ ->
         {:error, "API Error"}
     end
-  }
+  end
 
   def get_api_key() do
     Application.get_env(:spotigroups, :lastfm_api_key)
@@ -34,11 +35,6 @@ defmodule Spotigroups.Services.LastFmApi do
   end
 
   def valid_social_id(social_id) do
-    case api_get("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&mbid=#{"social_id"}&api_key=#{get_api_key()}&format=json") do
-      {:ok, _} ->
-        true
-      {:error, _} ->
-        false
-    end
+    api_get("http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=#{social_id}&api_key=#{get_api_key()}&format=json")
   end
 end
