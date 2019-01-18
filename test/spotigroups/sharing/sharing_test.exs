@@ -16,7 +16,7 @@ defmodule Spotigroups.SharingTest do
     @one_user_duplicate %{name: "test", users: ["123", "123"]}
 
     def group_fixture(attrs \\ %{}) do
-      Enum.each(@test_user_sids, fn us -> Accounts.create_user(%{spotify_id: us}) end)
+      Enum.each(@test_user_sids, fn us -> Accounts.create_user(%{social_id: us}) end)
       {:ok, group} =
         attrs
         |> Enum.into(@valid_attrs)
@@ -36,11 +36,11 @@ defmodule Spotigroups.SharingTest do
     end
 
     test "create_group/1 with valid data creates a group" do
-      Enum.each(@test_user_sids, fn us -> assert {:ok, user} = Accounts.create_user(%{spotify_id: us}) end)
+      Enum.each(@test_user_sids, fn us -> assert {:ok, user} = Accounts.create_user(%{social_id: us}) end)
       assert {:ok, %Group{} = group} = Sharing.create_group(@valid_attrs)
       preloaded_group = Spotigroups.Repo.preload(group, :users)
       assert preloaded_group.name == "some name"
-      user_sids = Enum.map(preloaded_group.users, fn u -> u.spotify_id end)
+      user_sids = Enum.map(preloaded_group.users, fn u -> u.social_id end)
       Enum.each(@test_user_sids, fn us -> assert Enum.member?(user_sids, us) end)
     end
 

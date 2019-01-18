@@ -3,11 +3,11 @@ defmodule Spotigroups.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :spotify_id, :string
+      add :social_id, :string
 
       timestamps()
     end
 
-    create unique_index(:users, [:spotify_id])
+    create unique_index(:users, [:social_id])
   end
 end

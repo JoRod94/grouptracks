@@ -41,7 +41,7 @@ defmodule Spotigroups.Sharing.Group do
   end
 
   defp add_users(%Changeset{valid?: true} = changeset, attrs) do
-    changeset |> put_assoc(:users, attrs.users)
+    changeset |> put_assoc(:users, Enum.uniq(attrs.users))
   end
 
  defp validate_user_ids_length(changeset, _), do: changeset 

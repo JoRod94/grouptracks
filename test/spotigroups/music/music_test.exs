@@ -16,7 +16,7 @@ defmodule Spotigroups.MusicTest do
     @test_user_sids ["123", "456"]
 
     def group_fixture(attrs \\ %{}) do
-      Enum.each(@test_user_sids, fn us -> Accounts.create_user(%{spotify_id: us}) end)
+      Enum.each(@test_user_sids, fn us -> Accounts.create_user(%{social_id: us}) end)
       {:ok, group} =
         attrs
         |> Enum.into(@valid_group_attrs)

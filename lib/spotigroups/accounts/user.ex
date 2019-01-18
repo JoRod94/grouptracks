@@ -4,7 +4,7 @@ defmodule Spotigroups.Accounts.User do
 
 
   schema "users" do
-    field :spotify_id, :string
+    field :social_id, :string
     many_to_many :groups, Spotigroups.Sharing.Group, join_through: Spotigroups.Sharing.GroupUser, on_delete: :delete_all, on_replace: :delete
 
     timestamps()
@@ -13,8 +13,8 @@ defmodule Spotigroups.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:spotify_id])
-    |> validate_required([:spotify_id])
-    |> unique_constraint(:spotify_id)
+    |> cast(attrs, [:social_id])
+    |> validate_required([:social_id])
+    |> unique_constraint(:social_id)
   end
 end

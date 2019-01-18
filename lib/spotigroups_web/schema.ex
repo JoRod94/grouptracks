@@ -21,7 +21,7 @@ defmodule SpotigroupsWeb.Schema do
 
   mutation do
     field :create_user, :user do
-      arg :spotify_id, non_null(:string)
+      arg :social_id, non_null(:string)
 
       resolve &AccountsResolver.create_user/3
     end

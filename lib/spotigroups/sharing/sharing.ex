@@ -53,7 +53,7 @@ defmodule Spotigroups.Sharing do
   """
   def create_group(attrs \\ %{}) do
     hasUsers = Map.has_key?(attrs, :users)
-    users = if hasUsers, do: Spotigroups.Services.GroupCreation.get_users_by_spotify_ids(attrs.users), else: nil
+    users = if hasUsers, do: Spotigroups.Services.GroupCreation.get_users_by_social_ids(attrs.users), else: nil
     new_attrs = if hasUsers, do: %{attrs | users: users}, else: attrs
     %Group{}
     |> Group.changeset(new_attrs)
@@ -74,7 +74,7 @@ defmodule Spotigroups.Sharing do
   """
   def update_group(%Group{} = group, attrs) do
     hasUsers = Map.has_key?(attrs, :users)
-    users = if hasUsers, do: Spotigroups.Services.GroupCreation.get_users_by_spotify_ids(attrs.users), else: nil
+    users = if hasUsers, do: Spotigroups.Services.GroupCreation.get_users_by_social_ids(attrs.users), else: nil
     new_attrs = if hasUsers, do: %{attrs | users: users}, else: attrs
     group
     |> Group.changeset(new_attrs)

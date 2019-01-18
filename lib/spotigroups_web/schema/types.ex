@@ -4,7 +4,7 @@ defmodule SpotigroupsWeb.Schema.Types do
 
   object :user do
     field :id, non_null(:id)
-    field :spotify_id, non_null(:string)
+    field :social_id, non_null(:string)
     field :groups, list_of(:group), resolve: assoc(:group)
   end
 

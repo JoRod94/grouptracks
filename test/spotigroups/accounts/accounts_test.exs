@@ -6,9 +6,9 @@ defmodule Spotigroups.AccountsTest do
   describe "users" do
     alias Spotigroups.Accounts.User
 
-    @valid_attrs %{spotify_id: "some spotify_id"}
-    @update_attrs %{spotify_id: "some updated spotify_id"}
-    @invalid_attrs %{spotify_id: nil}
+    @valid_attrs %{social_id: "some social_id"}
+    @update_attrs %{social_id: "some updated social_id"}
+    @invalid_attrs %{social_id: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -31,7 +31,7 @@ defmodule Spotigroups.AccountsTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.spotify_id == "some spotify_id"
+      assert user.social_id == "some social_id"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -42,7 +42,7 @@ defmodule Spotigroups.AccountsTest do
       user = user_fixture()
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
-      assert user.spotify_id == "some updated spotify_id"
+      assert user.social_id == "some updated social_id"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
